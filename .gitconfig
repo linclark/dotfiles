@@ -6,9 +6,14 @@
 [branch]
 	autosetuprebase = always
 [alias]
+	; console-specific
+	getsha = "!f() { git log devtools-html/console-frontend --grep \"$1\" --pretty=oneline --reverse --format=format:%H; }; f"
+	prep = "!f() { git fetch origin; git fetch devtools-html; git reset --hard origin/branches/default/tip; git ch `git getsha \"$1\"`; }; f"
+
 	co = checkout
 	br = branch
 	ci = commit
+	ch = cherry-pick
 	st = status
 	unstage = reset HEAD --
 	last = log -1 HEAD
@@ -20,5 +25,7 @@
 	ca = "!git add -A && git commit -av"
 	amend = commit -a --amend --no-edit
 	b = checkout -b
-	annihilate = "!f() { git branch -D \"$1\"; git push origin --delete \"$1\"; }; f"
+	annihilate = "!f() { git branch -D \"$1\"; git push linclark --delete \"$1\"; }; f"
 	ann = annihilate
+[diff]
+	compactionHeuristic = true
